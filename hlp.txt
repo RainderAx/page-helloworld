@@ -1,40 +1,4 @@
-The recommended git tool is: NONE
-No credentials specified
- > git rev-parse --resolve-git-dir /var/jenkins_home/workspace/rainder/.git # timeout=10
-Fetching changes from the remote Git repository
- > git config remote.origin.url https://github.com/RainderAx/page-helloworld.git # timeout=10
-Fetching upstream changes from https://github.com/RainderAx/page-helloworld.git
- > git --version # timeout=10
- > git --version # 'git version 2.47.3'
- > git fetch --tags --force --progress -- https://github.com/RainderAx/page-helloworld.git +refs/heads/*:refs/remotes/origin/* # timeout=10
- > git rev-parse refs/remotes/origin/main^{commit} # timeout=10
-Checking out Revision a4b2ac62b3643281196436c10d96598a88755862 (refs/remotes/origin/main)
- > git config core.sparsecheckout # timeout=10
- > git checkout -f a4b2ac62b3643281196436c10d96598a88755862 # timeout=10
- > git branch -a -v --no-abbrev # timeout=10
- > git branch -D main # timeout=10
- > git checkout -b main a4b2ac62b3643281196436c10d96598a88755862 # timeout=10
-Commit message: "Refactor Jenkins pipeline syntax in README.md"
- > git rev-list --no-walk a4b2ac62b3643281196436c10d96598a88755862 # timeout=10
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] stage
-[Pipeline] { (Deploy)
-[Pipeline] withCredentials
-Masking supported pattern matches of $PASS
-[Pipeline] {
-[Pipeline] sh
-Warning: A secret was passed to "sh" using Groovy String interpolation, which is insecure.
-		 Affected argument(s) used the following variable(s): [PASS]
-		 See https://jenkins.io/redirect/groovy-string-interpolation for details.
-+ sshpass -p **** scp -o StrictHostKeyChecking=no index.html rainderdomain@ssh-rainderdomain.alwaysdata.net:/home/rainderdomain/www/
-/var/jenkins_home/workspace/rainder@tmp/durable-a3a4fc73/script.sh.copy: 2: sshpass: not found
-[Pipeline] }
-[Pipeline] // withCredentials
-[Pipeline] }
-[Pipeline] // stage
-[Pipeline] }
-[Pipeline] // node
-[Pipeline] End of Pipeline
-ERROR: script returned exit code 127
-Finished: FAILURE
+rainder@rainder-VMware-Virtual-Platform:~$ sudo docker exec -it festive_hawking bash
+jenkins@e8240fe92397:/$ apt update
+Error: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)
+jenkins@e8240fe92397:/$ 
