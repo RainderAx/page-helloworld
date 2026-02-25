@@ -1,4 +1,1 @@
-rainder@rainder-VMware-Virtual-Platform:~$ sudo docker exec -it festive_hawking bash
-jenkins@e8240fe92397:/$ apt update
-Error: List directory /var/lib/apt/lists/partial is missing. - Acquire (13: Permission denied)
-jenkins@e8240fe92397:/$ 
+sudo docker exec -it -u root festive_hawking bash
