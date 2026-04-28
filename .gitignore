@@ -1,0 +1,34 @@
+# Dépendances (Le plus important !)
+node_modules/
+jspm_packages/
+
+# Fichiers de log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Variables d'environnement (Sécurité : ne jamais partager tes clés API)
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Dossiers de build/sortie
+dist/
+build/
+out/
+
+# Fichiers système
+.DS_Store
+Thumbs.db
+
+# Dossiers d'IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Rapports de couverture de tests
+coverage/
+.nyc_output/
