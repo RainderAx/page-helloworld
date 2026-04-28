@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/fredericEducentre/zodiacJS.git'
+                git branch: 'main', url: 'https://github.com/RainderAx/page-helloworld.git'
             }
         }
         stage('Build') {
