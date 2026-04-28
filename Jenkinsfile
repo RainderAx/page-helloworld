@@ -33,7 +33,7 @@ pipeline {
                       -Dsonar.sources=. \
                       -Dsonar.host.url=http://sonarqube_container:9000 \
                       -Dsonar.token=${SONAR_TOKEN}
-                    """ [cite: 7, 8]
+                    """ 
                 }
             }
         }
