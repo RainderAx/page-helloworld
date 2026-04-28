@@ -1,11 +1,63 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
+    <title>Ma Page Node.js</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+        }
+
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            background-color: #f9f9f9;
+        }
+
+        button {
+            cursor: pointer;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Hello World</h1>
+
+    <h1>Interagir avec l'API</h1>
+    <button id="fetchBtn">Appeler le Backend</button>
+
+    <div id="response">Le message s'affichera ici...</div>
+
+    <script>
+        const btn = document.getElementById('fetchBtn');
+        const display = document.getElementById('response');
+
+        btn.addEventListener('click', async () => {
+            try {
+                // On appelle l'URL du serveur Express
+                const response = await fetch('http://localhost:3000/api/message');
+                const data = await response.json();
+
+                // On affiche le résultat dans la page
+                display.innerHTML = `<strong>Message:</strong> ${data.text} <br> 
+                                     <small>Reçu à: ${data.timestamp}</small>`;
+            } catch (error) {
+                display.innerText = "Erreur : Impossible de joindre le serveur.";
+                console.error(error);
+            }
+        });
+    </script>
 </body>
+
 </html>
