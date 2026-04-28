@@ -1,31 +1,29 @@
 pipeline {
-    agent { label 'nodeJS' } // Utilise l'agent avec Node et Docker installé [cite: 4]
+    agent { label 'nodeJS' }
 
     environment {
-        // Remplace par tes vraies valeurs
+        // REMPLACE par ton pseudo Docker Hub réel
         DOCKER_USER = 'ton_username_dockerhub'
         IMAGE_NAME = 'page-helloworld'
-        SONAR_PROJECT_KEY = 'mon_projet_key' // Ta clé projet SonarQube
+        SONAR_PROJECT_KEY = 'mon_projet_key' 
     }
 
     stages {
         stage('Clone') {
             steps {
-                git branch: 'main', url: 'https://github.com/RainderAx/page-helloworld.git' [cite: 4]
+                git branch: 'main', url: 'https://github.com/RainderAx/page-helloworld.git'
             }
         }
 
         stage('Build & Test') {
             steps {
-                sh 'npm install' [cite: 5]
-                sh 'npm run build' [cite: 5]
-                // sh 'npm run test' // Décommente si tu as des tests unitaires 
+                sh 'npm install'
+                sh 'npm run build'
             }
         }
 
         stage('SonarQube Analysis') {
             steps {
-                // On utilise le credential 'sonar-token' créé précédemment
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     sh """
                     sonar-scanner \
@@ -33,7 +31,7 @@ pipeline {
                       -Dsonar.sources=. \
                       -Dsonar.host.url=http://sonarqube_container:9000 \
                       -Dsonar.token=${SONAR_TOKEN}
-                    """ 
+                    """
                 }
             }
         }
@@ -41,14 +39,12 @@ pipeline {
         stage('Docker Build & Push') {
             steps {
                 script {
-                    // Connexion à Docker Hub avec les identifiants Jenkins
                     withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', passwordVariable: 'DOCKER_PASS', usernameVariable: 'DOCKER_USER_VAR')]) {
-                        
-                        // 1. Build de l'image
+                        // Build de l'image
                         sh "docker build -t ${DOCKER_USER}/${IMAGE_NAME}:${env.BUILD_ID} ."
                         sh "docker tag ${DOCKER_USER}/${IMAGE_NAME}:${env.BUILD_ID} ${DOCKER_USER}/${IMAGE_NAME}:latest"
 
-                        // 2. Login et Push
+                        // Login et Push
                         sh "echo \$DOCKER_PASS | docker login -u \$DOCKER_USER_VAR --password-stdin"
                         sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:${env.BUILD_ID}"
                         sh "docker push ${DOCKER_USER}/${IMAGE_NAME}:latest"
